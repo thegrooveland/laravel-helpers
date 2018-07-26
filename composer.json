@@ -1,0 +1,16 @@
+{
+    "name": "grooveland/helpers",
+    "description": "Set of helpers to simplify the workflow",
+    "type": "library, laravel-package, php, helpers",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "venespana",
+            "email": "venespana159@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "jasny/php-functions": "^3.3"
+    }
+}
