@@ -11,6 +11,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "jasny/php-functions": "^3.3"
+        "jasny/php-functions": "^3.3",
+        "h4kuna/number-format": "^3.0"
     }
 }

@@ -1,0 +1,4 @@
+vendor
+.sonarlint
+.idea
+.vagrant
