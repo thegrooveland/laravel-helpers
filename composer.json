@@ -1,7 +1,7 @@
 {
     "name": "grooveland/helpers",
     "description": "Set of helpers to simplify the workflow",
-    "type": "library, laravel-package, php, helpers",
+    "type": "package",
     "license": "MIT",
     "authors": [
         {
