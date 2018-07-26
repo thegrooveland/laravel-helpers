@@ -3,12 +3,12 @@
 if (!function_exists('is_collection')) {
 
     /**
-     * description
+     * Check if $value is a instance of Eloquent Collection
      *
-     * @param
-     * @return
+     * @param any $value
+     * @return bool
      */
-    function is_collection($value)
+    function is_collection($value) : bool
     {
         return $value  instanceof \Illuminate\Database\Eloquent\Collection;
     }
@@ -17,19 +17,20 @@ if (!function_exists('is_collection')) {
 if (!function_exists('to_obj')) {
 
     /**
-     * check if key exists in first level of array
+     * Transform an array, object with Object method
+     * or simple var into stdClass, the parameter is passed by reference
      *
-     * @param
-     * @return
+     * @param $data
+     * @return void
      */
-    function to_obj(&$data)
+    function to_obj(&$data) : void
     {
         if (is_array($data)) {
             $data = Jasny\objectify($data);
         } elseif ($data instanceof \Illuminate\Database\Eloquent\Collection) {
             $data = $data->toArray();
             to_obj($data);
-        }else if(is_object($data) && method_exists($data, 'toArray')) {
+        } elseif (is_object($data) && method_exists($data, 'toArray')) {
             $data = $data->toArray();
             to_obj($data);
         } elseif (!$data instanceof \stdClass) {
@@ -37,7 +38,5 @@ if (!function_exists('to_obj')) {
             $data = new \stdClass();
             $data->value = $value;
         }
-
-        return $data;
     }
 }

@@ -3,12 +3,17 @@
 if (!function_exists('str_truncate')) {
 
     /**
-     * check if key exists in first level of array
+     * Truncate a string by a max of chars, optionally can add HTML entities, preserve tags and add ellipsis
      *
-     * @param
-     * @return
+     * @param string $string
+     * @param int $max
+     * @param int $start
+     * @param bool $addHtmlEntities
+     * @param bool $cleanTags
+     * @param bool $ellipsis
+     * @return string
      */
-    function str_truncate(string $string, int $max, int $start = 0, bool $addHtmlEntities = false, bool $cleanTags = true, bool $ellipsis = true)
+    function str_truncate(string $string, int $max, int $start = 0, bool $addHtmlEntities = false, bool $cleanTags = true, bool $ellipsis = true) : string
     {
         $string = html_entity_decode($string);
         $string = strip_tags($string);
@@ -29,12 +34,14 @@ if (!function_exists('str_truncate')) {
 if (!function_exists('str_replace_first')) {
 
     /**
-     * check if key exists in first level of array
+     * Replace the first coincidence in a string
      *
-     * @param
-     * @return
+     * @param string $from
+     * @param string $to
+     * @param string $content
+     * @return string
      */
-    function str_replace_first($from, $to, $content)
+    function str_replace_first(string $from, string $to, string $content) : string
     {
         $from = '/'.preg_quote($from, '/').'/';
 

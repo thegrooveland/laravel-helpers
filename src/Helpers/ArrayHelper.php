@@ -30,12 +30,13 @@ if (!function_exists('HasIn')) {
 if (!function_exists('to_array')) {
 
     /**
-     * check if key exists in first level of array
+     * Transform an stdClass, object with toArray method
+     * or simple var into array, the parameter is passed by reference
      *
-     * @param
-     * @return
+     * @param $data
+     * @return void
      */
-    function to_array(&$data)
+    function to_array(&$data) : void
     {
         if ($data instanceof \stdClass) {
             $data = Jasny\arrayify($data);
@@ -44,7 +45,5 @@ if (!function_exists('to_array')) {
         } elseif (!is_array($data)) {
             $data = [$data];
         }
-
-        return $data;
     }
 }
