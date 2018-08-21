@@ -42,6 +42,8 @@ if (!function_exists('to_array')) {
             $data = Jasny\arrayify($data);
         } elseif (method_exists($data, 'toArray')) {
             $data = $data->toArray();
+        } elseif (is_string($data)) {
+            $data = explode('.', $data);
         } elseif (!is_array($data)) {
             $data = [$data];
         }
