@@ -3,9 +3,34 @@
 namespace Grooveland\Helpers\traits;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 trait ModelsTrait
 {
+    use CheckerTrait;
+    
+    /**
+     * Data model
+     *
+     * @var Model
+     */
+    protected $model = null;
+
+    public function setModel($model)
+    {
+        if (!$this->instanceof($model, [Model::class, Builder::class])) {
+            $model = null;
+        }
+        $this->model = $model;
+        return $this;
+    }
+
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+
     protected function getValueFromModel(Model $model, string $field)
     {
         $value = $model->$field;
