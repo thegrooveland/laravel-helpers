@@ -4,6 +4,7 @@ namespace Grooveland\Helpers\traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 trait ModelsTrait
 {
@@ -31,16 +32,25 @@ trait ModelsTrait
     }
 
 
-    protected function getValueFromModel(Model $model, string $field)
+    protected function getValueFromModel(Model $model, ?string $field, $default = null)
     {
+        if (is_null($field)) {
+            return $default;
+        }
+
         $value = $model->$field;
         if (is_null($value)) {
             to_array($field);
 
             if (count($field) > 1) {
                 foreach ($field as $param) {
-                    $value = $this->getValueFromModel($model, $param);
-                    if ($value instanceof \Illuminate\Database\Eloquent\Model) {
+                    if ($this->instanceof($model, [Collection::class])) {
+                        $value = $this->getValueFromCollection($model, $param);
+                    } else {
+                        $value = $this->getValueFromModel($model, $param);
+                    }
+
+                    if ($this->instanceof($value, [Model::class, Collection::class])) {
                         $model = $value;
                     }
                 }
@@ -48,6 +58,28 @@ trait ModelsTrait
                 $value = $model->{reset($field)};
             }
         }
+
+        if (is_null($value)) {
+            $value = $default;
+        }
+        
+        return $value;
+    }
+
+    protected function getValueFromCollection(Collection $collection, ?string $key, $default = null)
+    {
+        if (is_null($key)) {
+            return $default;
+        }
+        
+        $value = $default;
+        foreach ($collection as $_key => $_value) {
+            if ($_key == $key) {
+                $value = $_value;
+                break;
+            }
+        }
+
         return $value;
     }
 }
