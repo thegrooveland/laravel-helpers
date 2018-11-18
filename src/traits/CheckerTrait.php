@@ -9,6 +9,10 @@ trait CheckerTrait
         if (is_array($haystack)) {
             return $this->instanceofMulti($needle, $haystack);
         }
+
+        if (is_string($needle) && class_exists($needle)) {
+            $needle = new $needle;
+        }
         return $needle instanceof $haystack;
     }
 
